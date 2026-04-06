@@ -18,7 +18,7 @@ function spin(){
   let count = 0;
 
   let interval = setInterval(()=>{
-    let rand = items[Math.floor(Math.random()*items.length)];
+    let rand = items[Math.floor(Math.random()*items.length);
     document.getElementById("result").textContent = rand;
 
     count++;
