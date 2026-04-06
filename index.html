@@ -3,33 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <title>ルーレット</title>
+
+<style>
+body{
+  background:#222;
+  color:white;
+  text-align:center;
+  font-family:sans-serif;
+}
+
+#wheel{
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  margin:30px auto;
+  border:5px solid white;
+  position:relative;
+  transition: transform 3s ease-out;
+}
+
+/* 色分け */
+.slice{
+  position:absolute;
+  width:100%;
+  height:100%;
+  clip-path: polygon(50% 50%, 100% 0, 100% 100%);
+  transform-origin:50% 50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:30px;
+}
+
+</style>
 </head>
 
 <body>
-<h1>1〜5ルーレット</h1>
-<div id="result">？</div>
+
+<h1>Webルーレット</h1>
+
+<div id="wheel"></div>
 <button onclick="spin()">回す</button>
 
 <script>
 const items = [1,2,3,4,5];
-let cheatResult = 3;
+const colors = ["#f66","#6f6","#66f","#ff6","#f6f"];
+let cheat = 3; // ←ここ変えれば結果操作
+
+const wheel = document.getElementById("wheel");
+
+// 作る
+items.forEach((item,i)=>{
+  let div = document.createElement("div");
+  div.className = "slice";
+  div.style.background = colors[i];
+  div.style.transform = `rotate(${i*72}deg)`;
+  div.innerHTML = `<div style="transform: rotate(-${i*72}deg)">${item}</div>`;
+  wheel.appendChild(div);
+});
 
 function spin(){
-  let count = 0;
-
-  let interval = setInterval(()=>{
-    let rand = items[Math.floor(Math.random()*items.length);
-    document.getElementById("result").textContent = rand;
-
-    count++;
-
-    if(count > 20){
-      clearInterval(interval);
-      document.getElementById("result").textContent = cheatResult;
-    }
-
-  },100);
+  let angle = 360*5 + (cheat-1)*72;
+  wheel.style.transform = `rotate(${angle}deg)`;
 }
 </script>
+
 </body>
 </html>
